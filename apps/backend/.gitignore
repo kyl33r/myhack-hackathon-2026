@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 node_modules/
 dist/
 .vite/
@@ -39,3 +40,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+=======
+node_modules/
+>>>>>>> Stashed changes

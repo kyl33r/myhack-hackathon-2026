@@ -1,5 +1,9 @@
+<<<<<<< Updated upstream
 node_modules/
 dist/
 .vite/
 .env.local
 .env.*.local
+=======
+node_modules/
+>>>>>>> Stashed changes
