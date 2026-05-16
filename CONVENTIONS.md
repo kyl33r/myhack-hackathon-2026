@@ -37,7 +37,14 @@ Required keys:
 
 ## Actor Types
 
-The string values `"mentor"`, `"programme"`, and `"partner"` are the canonical `actor_type` values used in Firestore and in API payloads. Never abbreviate or vary these.
+`actor_type` canonical values: `"mentor"` | `"programme"` | `"partner"`
+
+When `actor_type = "partner"`, the `partner_type` field is required:
+`partner_type` canonical values: `"corporate"` | `"investor"` | `"service_provider"`
+
+For all other `actor_type` values, `partner_type` is `null`.
+
+Never abbreviate or vary these strings — they are used as filter keys in Firestore queries and as display labels in the admin dashboard.
 
 ## Match Score
 

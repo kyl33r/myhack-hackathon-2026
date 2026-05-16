@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cradle Portal — Admin Dashboard</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- future <Nav /> -->
+  <nav class="nav">
+    <span class="nav-logo">Cradle Portal</span>
+    <a href="index.html" class="nav-link">+ New Submission</a>
+  </nav>
+
+  <!-- future <AdminDashboard /> -->
+  <main class="container">
+
+    <div class="results-header">
+      <div>
+        <h1 class="page-title">Linkage Dashboard</h1>
+        <p class="page-subtitle">All confirmed matches across mentors, programmes, and partners.</p>
+      </div>
+      <!-- future <ExportCSVButton /> -->
+      <button class="btn btn-secondary" id="export-btn">Export CSV</button>
+    </div>
+
+    <!-- future <LinkageFilters /> -->
+    <section class="filters-bar">
+      <div class="filter-group">
+        <label for="filter-actor-type">Actor Type</label>
+        <select id="filter-actor-type">
+          <option value="">All</option>
+          <option value="mentor">Mentor</option>
+          <option value="programme">Programme</option>
+          <option value="partner">Partner</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="filter-partner-type">Partner Type</label>
+        <select id="filter-partner-type">
+          <option value="">All</option>
+          <option value="corporate">Corporate</option>
+          <option value="investor">Investor</option>
+          <option value="service_provider">Service Provider</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="filter-startup">Startup Name</label>
+        <input type="text" id="filter-startup" placeholder="Search startup…" />
+      </div>
+      <div class="filter-group">
+        <label for="filter-status">Status</label>
+        <select id="filter-status">
+          <option value="">All</option>
+          <option value="active">Active</option>
+          <option value="pending">Pending</option>
+          <option value="closed">Closed</option>
+        </select>
+      </div>
+    </section>
+
+    <!-- future <LinkageTable /> -->
+    <section class="table-section">
+      <table class="linkage-table" id="linkage-table">
+        <thead>
+          <tr>
+            <th>Startup</th>
+            <th>Actor Type</th>
+            <th>Partner Type</th>
+            <th>Actor Name</th>
+            <th>Match Score</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th>Outcome</th>
+          </tr>
+        </thead>
+        <tbody id="table-body">
+          <!-- Rows injected by JS -->
+        </tbody>
+      </table>
+      <div id="empty-state" class="empty-state hidden">No linkages match your filters.</div>
+    </section>
+
+  </main>
+
+  <!-- future <Toast /> -->
+  <div id="toast" class="toast hidden"></div>
+
+  <script>
+    // Seed data — in production this comes from Firestore
+    const linkages = [
+      { startup: 'PayEase',   actorType: 'mentor',    partnerType: null,             actorName: 'Ahmad Razif',       score: 92, status: 'active',  date: '2026-05-16', outcome: '—' },
+      { startup: 'PayEase',   actorType: 'programme', partnerType: null,             actorName: 'CIP Accelerate',    score: 90, status: 'active',  date: '2026-05-16', outcome: '—' },
+      { startup: 'PayEase',   actorType: 'partner',   partnerType: 'corporate',      actorName: 'Mastercard',        score: 88, status: 'pending', date: '2026-05-16', outcome: '—' },
+      { startup: 'PayEase',   actorType: 'partner',   partnerType: 'investor',       actorName: 'Openspace Ventures',score: 86, status: 'active',  date: '2026-05-16', outcome: '—' },
+      { startup: 'PayEase',   actorType: 'partner',   partnerType: 'service_provider',actorName: 'Wong & Partners',  score: 83, status: 'active',  date: '2026-05-16', outcome: '—' },
+      { startup: 'MediTrack', actorType: 'mentor',    partnerType: null,             actorName: 'Priya Nair',        score: 85, status: 'active',  date: '2026-05-15', outcome: '—' },
+      { startup: 'MediTrack', actorType: 'programme', partnerType: null,             actorName: 'GAIN Grant',        score: 76, status: 'closed',  date: '2026-05-14', outcome: 'Not selected' },
+      { startup: 'MediTrack', actorType: 'partner',   partnerType: 'investor',       actorName: 'Iterative',         score: 74, status: 'pending', date: '2026-05-15', outcome: '—' },
+      { startup: 'EduReach',  actorType: 'mentor',    partnerType: null,             actorName: 'David Tan',         score: 80, status: 'active',  date: '2026-05-13', outcome: '—' },
+      { startup: 'EduReach',  actorType: 'partner',   partnerType: 'service_provider',actorName: 'AWS Activate',     score: 75, status: 'active',  date: '2026-05-13', outcome: '—' },
+    ];
+
+    const actorTagClass = {
+      mentor:    'tag-mentor',
+      programme: 'tag-programme',
+      partner:   'tag-corporate',
+    };
+
+    const partnerTagClass = {
+      corporate:        'tag-corporate',
+      investor:         'tag-investor',
+      service_provider: 'tag-service',
+    };
+
+    const partnerLabel = {
+      corporate:        'Corporate',
+      investor:         'Investor',
+      service_provider: 'Service Provider',
+    };
+
+    function scoreClass(s) {
+      return s >= 85 ? 'score-high' : s >= 70 ? 'score-mid' : 'score-low';
+    }
+
+    function renderRows(data) {
+      const tbody = document.getElementById('table-body');
+      const empty = document.getElementById('empty-state');
+      tbody.innerHTML = '';
+      if (!data.length) {
+        empty.classList.remove('hidden');
+        return;
+      }
+      empty.classList.add('hidden');
+      data.forEach(row => {
+        const partnerTypeCell = row.partnerType
+          ? `<span class="actor-tag ${partnerTagClass[row.partnerType]}">${partnerLabel[row.partnerType]}</span>`
+          : '<span class="text-muted">—</span>';
+        tbody.insertAdjacentHTML('beforeend', `
+          <tr>
+            <td>${row.startup}</td>
+            <td><span class="actor-tag ${actorTagClass[row.actorType]}">${row.actorType.charAt(0).toUpperCase() + row.actorType.slice(1)}</span></td>
+            <td>${partnerTypeCell}</td>
+            <td>${row.actorName}</td>
+            <td><span class="score-badge ${scoreClass(row.score)}">${row.score}%</span></td>
+            <td><span class="status-badge status-${row.status}">${row.status.charAt(0).toUpperCase() + row.status.slice(1)}</span></td>
+            <td>${row.date}</td>
+            <td>${row.outcome}</td>
+          </tr>
+        `);
+      });
+    }
+
+    function applyFilters() {
+      const actorType   = document.getElementById('filter-actor-type').value;
+      const partnerType = document.getElementById('filter-partner-type').value;
+      const startup     = document.getElementById('filter-startup').value.toLowerCase();
+      const status      = document.getElementById('filter-status').value;
+
+      const filtered = linkages.filter(r =>
+        (!actorType   || r.actorType === actorType) &&
+        (!partnerType || r.partnerType === partnerType) &&
+        (!startup     || r.startup.toLowerCase().includes(startup)) &&
+        (!status      || r.status === status)
+      );
+      renderRows(filtered);
+    }
+
+    ['filter-actor-type','filter-partner-type','filter-startup','filter-status']
+      .forEach(id => document.getElementById(id).addEventListener('input', applyFilters));
+
+    // Export CSV
+    document.getElementById('export-btn').addEventListener('click', () => {
+      const rows = [['Startup','Actor Type','Partner Type','Actor Name','Match Score','Status','Date','Outcome']];
+      linkages.forEach(r => rows.push([r.startup, r.actorType, r.partnerType || '', r.actorName, r.score + '%', r.status, r.date, r.outcome]));
+      const csv = rows.map(r => r.map(c => `"${c}"`).join(',')).join('\n');
+      const a = document.createElement('a');
+      a.href = 'data:text/csv,' + encodeURIComponent(csv);
+      a.download = 'linkages.csv';
+      a.click();
+      showToast('CSV exported');
+    });
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.remove('hidden');
+      setTimeout(() => toast.classList.add('hidden'), 3000);
+    }
+
+    // Initial render
+    renderRows(linkages);
+  </script>
+
+</body>
+</html>
