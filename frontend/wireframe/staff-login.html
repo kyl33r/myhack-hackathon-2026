@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cradle Portal — Staff Login</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- future <Nav /> -->
+  <nav class="nav">
+    <span class="nav-logo">Cradle Portal</span>
+  </nav>
+
+  <!-- future <StaffLogin /> -->
+  <main class="container">
+    <a href="index.html" class="back-btn">← Back</a>
+
+    <div class="card form-card">
+      <div class="form-type-badge">
+        <span class="actor-tag tag-cradle">Cradle Staff</span>
+      </div>
+      <h1 class="page-title">Staff Login</h1>
+      <p class="page-subtitle">Access is restricted to Cradle programme and ecosystem administrators.</p>
+
+      <form id="staff-form" class="form" novalidate>
+
+        <div class="form-group">
+          <label for="staff-email">Email</label>
+          <input type="email" id="staff-email" placeholder="you@cradle.com.my" required />
+          <span class="field-error" id="err-staff-email">A valid email is required.</span>
+        </div>
+
+        <div class="form-group">
+          <label for="staff-password">Password</label>
+          <input type="password" id="staff-password" placeholder="••••••••" required />
+          <span class="field-error" id="err-staff-password">This field is required.</span>
+        </div>
+
+        <button type="submit" id="submit-btn" class="btn btn-primary btn-full">Login</button>
+
+      </form>
+    </div>
+  </main>
+
+  <div id="loading-overlay" class="overlay hidden">
+    <div class="overlay-box">
+      <div class="spinner"></div>
+      <p class="overlay-text">Logging you in…</p>
+      <p class="overlay-sub">Verifying credentials</p>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('staff-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('staff-email');
+      const password = document.getElementById('staff-password');
+      let valid = true;
+      if (!email.value.trim()) { document.getElementById('err-staff-email').classList.add('visible'); valid = false; }
+      else document.getElementById('err-staff-email').classList.remove('visible');
+      if (!password.value.trim()) { document.getElementById('err-staff-password').classList.add('visible'); valid = false; }
+      else document.getElementById('err-staff-password').classList.remove('visible');
+      if (!valid) return;
+
+      document.getElementById('submit-btn').disabled = true;
+      document.getElementById('submit-btn').textContent = 'Logging in…';
+      document.getElementById('loading-overlay').classList.remove('hidden');
+      setTimeout(() => { window.location.href = 'admin.html'; }, 1500);
+    });
+  </script>
+
+</body>
+</html>

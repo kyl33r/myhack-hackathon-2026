@@ -33,6 +33,7 @@ All secrets live in `backend/.env` (gitignored).
 `backend/.env.example` lists required keys — keep it up to date when adding a new secret.
 
 Required keys:
+
 - `GEMINI_API_KEY`
 
 ## Actor Types

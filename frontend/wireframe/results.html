@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cradle Portal — Match Results</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- future <Nav /> -->
+  <nav class="nav">
+    <span class="nav-logo">Cradle Portal</span>
+    <a href="admin.html" class="nav-link">Admin Dashboard</a>
+  </nav>
+
+  <!-- future <MatchResults /> -->
+  <main class="container">
+
+    <div class="results-header">
+      <div>
+        <h1 class="page-title">Matches for <span class="highlight" id="startup-title">your startup</span></h1>
+        <p class="page-subtitle">AI-matched based on your profile. Confirm a match to save it as a structured linkage.</p>
+      </div>
+      <!-- future <SlideDeckButton /> -->
+      <button class="btn btn-secondary" id="slide-deck-btn">Generate Slide Deck</button>
+    </div>
+
+    <!-- future <MatchSection title="Mentors" /> -->
+    <section class="match-section">
+      <h2 class="section-title">Mentors</h2>
+      <div class="card-grid">
+
+        <!-- future <MatchCard actorType="mentor" /> -->
+        <div class="match-card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-name">Ahmad Razif</h3>
+              <span class="actor-tag tag-mentor">Mentor</span>
+            </div>
+            <span class="score-badge score-high">92%</span>
+          </div>
+          <p class="card-meta">Fintech · Seed · Kuala Lumpur</p>
+          <p class="match-reason">"Ahmad has fintech expertise and mentored 3 payment startups at seed stage."</p>
+          <button class="btn btn-primary btn-full confirm-btn" data-actor="Ahmad Razif" data-type="mentor">Confirm Linkage</button>
+        </div>
+
+        <div class="match-card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-name">Priya Nair</h3>
+              <span class="actor-tag tag-mentor">Mentor</span>
+            </div>
+            <span class="score-badge score-high">85%</span>
+          </div>
+          <p class="card-meta">B2B SaaS · Pre-seed, Seed · Remote</p>
+          <p class="match-reason">"Priya has scaled two B2B SaaS startups and advises on GTM and enterprise sales."</p>
+          <button class="btn btn-primary btn-full confirm-btn" data-actor="Priya Nair" data-type="mentor">Confirm Linkage</button>
+        </div>
+
+        <div class="match-card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-name">David Tan</h3>
+              <span class="actor-tag tag-mentor">Mentor</span>
+            </div>
+            <span class="score-badge score-mid">74%</span>
+          </div>
+          <p class="card-meta">Payments · Series A · Singapore</p>
+          <p class="match-reason">"David built a cross-border payments platform and has deep regulatory knowledge in SEA."</p>
+          <button class="btn btn-primary btn-full confirm-btn" data-actor="David Tan" data-type="mentor">Confirm Linkage</button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- future <MatchSection title="Programmes" /> -->
+    <section class="match-section">
+      <h2 class="section-title">Programmes</h2>
+      <div class="card-grid">
+
+        <div class="match-card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-name">CIP Accelerate</h3>
+              <span class="actor-tag tag-programme">Programme</span>
+            </div>
+            <span class="score-badge score-high">90%</span>
+          </div>
+          <p class="card-meta">Funding: RM 500,000 · Next intake: Q3 2026</p>
+          <p class="match-reason">"CIP Accelerate targets fintech seed-stage startups and offers direct investment plus lab access."</p>
+          <button class="btn btn-primary btn-full confirm-btn" data-actor="CIP Accelerate" data-type="programme">Confirm Linkage</button>
+        </div>
+
+        <div class="match-card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-name">GAIN Grant</h3>
+              <span class="actor-tag tag-programme">Programme</span>
+            </div>
+            <span class="score-badge score-high">82%</span>
+          </div>
+          <p class="card-meta">Funding: RM 150,000 · Next intake: Q4 2026</p>
+          <p class="match-reason">"GAIN supports early-stage startups with commercialisation grants, matching PayEase's seed stage."</p>
+          <button class="btn btn-primary btn-full confirm-btn" data-actor="GAIN Grant" data-type="programme">Confirm Linkage</button>
+        </div>
+
+        <div class="match-card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-name">Tech Startup Catalyst</h3>
+              <span class="actor-tag tag-programme">Programme</span>
+            </div>
+            <span class="score-badge score-mid">71%</span>
+          </div>
+          <p class="card-meta">Funding: RM 100,000 · Next intake: Q2 2026</p>
+          <p class="match-reason">"TSC provides structured mentorship and market access for early fintech and payments startups."</p>
+          <button class="btn btn-primary btn-full confirm-btn" data-actor="Tech Startup Catalyst" data-type="programme">Confirm Linkage</button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- future <MatchSection title="Corporate Partners" /> -->
+    <section class="match-section">
+      <h2 class="section-title">Corporate Partners</h2>
+      <div class="card-grid card-grid-2">
+
+        <div class="match-card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-name">Mastercard</h3>
+              <span class="actor-tag tag-corporate">Corporate</span>
+            </div>
+            <span class="score-badge score-high">88%</span>
+          </div>
+          <p class="card-meta">Payments · Pilot Program · API Access</p>
+          <p class="match-reason">"Mastercard runs a fintech pilot programme and actively seeks seed-stage payment startups for co-pilots."</p>
+          <button class="btn btn-primary btn-full confirm-btn" data-actor="Mastercard" data-type="partner" data-partner-type="corporate">Confirm Linkage</button>
+        </div>
+
+        <div class="match-card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-name">CIMB Bank</h3>
+              <span class="actor-tag tag-corporate">Corporate</span>
+            </div>
+            <span class="score-badge score-mid">79%</span>
+          </div>
+          <p class="card-meta">Banking · API Sandbox · Distribution</p>
+          <p class="match-reason">"CIMB offers API sandbox access and distribution channels ideal for cross-border payment startups."</p>
+          <button class="btn btn-primary btn-full confirm-btn" data-actor="CIMB Bank" data-type="partner" data-partner-type="corporate">Confirm Linkage</button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- future <MatchSection title="Investors" /> -->
+    <section class="match-section">
+      <h2 class="section-title">Investors</h2>
+      <div class="card-grid card-grid-2">
+
+        <div class="match-card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-name">Openspace Ventures</h3>
+              <span class="actor-tag tag-investor">Investor</span>
+            </div>
+            <span class="score-badge score-high">86%</span>
+          </div>
+          <p class="card-meta">Ticket: RM 500K–3M · Seed, Series A · B2B Tech</p>
+          <p class="match-reason">"Openspace focuses on B2B tech with SEA expansion potential, aligning well with PayEase's cross-border payments thesis."</p>
+          <button class="btn btn-primary btn-full confirm-btn" data-actor="Openspace Ventures" data-type="partner" data-partner-type="investor">Confirm Linkage</button>
+        </div>
+
+        <div class="match-card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-name">Iterative</h3>
+              <span class="actor-tag tag-investor">Investor</span>
+            </div>
+            <span class="score-badge score-mid">77%</span>
+          </div>
+          <p class="card-meta">Ticket: RM 150K–600K · Pre-seed, Seed · SEA Founders</p>
+          <p class="match-reason">"Iterative backs early-stage SEA founders with capital and YC-style support, suitable for PayEase's current stage."</p>
+          <button class="btn btn-primary btn-full confirm-btn" data-actor="Iterative" data-type="partner" data-partner-type="investor">Confirm Linkage</button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- future <MatchSection title="Service Providers" /> -->
+    <section class="match-section">
+      <h2 class="section-title">Service Providers</h2>
+      <div class="card-grid card-grid-2">
+
+        <div class="match-card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-name">Wong & Partners</h3>
+              <span class="actor-tag tag-service">Legal</span>
+            </div>
+            <span class="score-badge score-high">83%</span>
+          </div>
+          <p class="card-meta">Legal · Discounted · Incorporation, Term Sheets, IP</p>
+          <p class="match-reason">"Wong & Partners specialises in fintech startup legal work and offers discounted rates for Cradle-referred companies."</p>
+          <button class="btn btn-primary btn-full confirm-btn" data-actor="Wong & Partners" data-type="partner" data-partner-type="service_provider">Confirm Linkage</button>
+        </div>
+
+        <div class="match-card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-name">AWS Activate</h3>
+              <span class="actor-tag tag-service">Cloud</span>
+            </div>
+            <span class="score-badge score-mid">75%</span>
+          </div>
+          <p class="card-meta">Cloud Credits · Free Tier · All stages</p>
+          <p class="match-reason">"AWS Activate provides up to $25K in cloud credits, reducing infrastructure costs for PayEase's early growth phase."</p>
+          <button class="btn btn-primary btn-full confirm-btn" data-actor="AWS Activate" data-type="partner" data-partner-type="service_provider">Confirm Linkage</button>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- future <Toast /> -->
+  <div id="toast" class="toast hidden"></div>
+
+  <!-- future <SlideDeckModal /> -->
+  <div id="slide-modal" class="modal-overlay hidden">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title">Startup Summary Deck</h2>
+        <button class="modal-close" id="modal-close">✕</button>
+      </div>
+      <div class="slide">
+        <div class="slide-number">1 / 3</div>
+        <h3 class="slide-title" id="slide-startup-name">PayEase</h3>
+        <p class="slide-tagline">Cross-border payments for SMEs</p>
+        <div class="slide-chips">
+          <span class="chip">Fintech</span>
+          <span class="chip">Seed Stage</span>
+          <span class="chip">Kuala Lumpur</span>
+        </div>
+      </div>
+      <div class="slide">
+        <div class="slide-number">2 / 3</div>
+        <h3 class="slide-title">Top Matches</h3>
+        <ul class="slide-list">
+          <li>🧑‍💼 Mentor — Ahmad Razif (92%)</li>
+          <li>📋 Programme — CIP Accelerate (90%)</li>
+          <li>🤝 Partner — Mastercard (88%)</li>
+          <li>💰 Investor — Openspace Ventures (86%)</li>
+          <li>⚖️ Service — Wong & Partners (83%)</li>
+        </ul>
+      </div>
+      <div class="slide">
+        <div class="slide-number">3 / 3</div>
+        <h3 class="slide-title">Next Steps</h3>
+        <ul class="slide-list">
+          <li>Confirm linkages to activate matches</li>
+          <li>Cradle staff will reach out within 5 working days</li>
+          <li>Prepare a 10-slide deck for programme application</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Populate startup name from query param
+    const params = new URLSearchParams(window.location.search);
+    const startup = params.get('startup') || 'your startup';
+    document.getElementById('startup-title').textContent = startup;
+    document.getElementById('slide-startup-name').textContent = startup;
+
+    // Confirm Linkage buttons
+    document.querySelectorAll('.confirm-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const actor = btn.dataset.actor;
+        btn.disabled = true;
+        btn.textContent = 'Linked ✓';
+        btn.classList.remove('btn-primary');
+        btn.classList.add('btn-confirmed');
+        showToast(`Linkage confirmed: ${actor}`);
+      });
+    });
+
+    // Toast
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.remove('hidden');
+      setTimeout(() => toast.classList.add('hidden'), 3000);
+    }
+
+    // Slide deck modal
+    document.getElementById('slide-deck-btn').addEventListener('click', () => {
+      document.getElementById('slide-modal').classList.remove('hidden');
+    });
+    document.getElementById('modal-close').addEventListener('click', () => {
+      document.getElementById('slide-modal').classList.add('hidden');
+    });
+    document.getElementById('slide-modal').addEventListener('click', (e) => {
+      if (e.target === e.currentTarget) e.currentTarget.classList.add('hidden');
+    });
+  </script>
+
+</body>
+</html>

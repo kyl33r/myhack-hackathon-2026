@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cradle Portal — Corporate Partner Registration</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- future <Nav /> -->
+  <nav class="nav">
+    <span class="nav-logo">Cradle Portal</span>
+  </nav>
+
+  <!-- future <CorporatePartnerForm /> -->
+  <main class="container">
+    <a href="partner.html" class="back-btn">← Back</a>
+
+    <div class="card form-card">
+      <div class="form-type-badge">
+        <span class="actor-tag tag-corporate">Corporate Partner</span>
+      </div>
+      <h1 class="page-title">Register your organisation</h1>
+      <p class="page-subtitle">Your profile will be reviewed by Cradle before being added to the ecosystem.</p>
+
+      <form id="corp-form" class="form" novalidate>
+
+        <div class="form-group">
+          <label for="org-name">Organisation Name</label>
+          <input type="text" id="org-name" placeholder="e.g. Mastercard" required />
+          <span class="field-error" id="err-org-name">This field is required.</span>
+        </div>
+
+        <div class="form-group">
+          <label for="contact-name">Contact Person</label>
+          <input type="text" id="contact-name" placeholder="e.g. Sarah Lee" required />
+          <span class="field-error" id="err-contact-name">This field is required.</span>
+        </div>
+
+        <div class="form-group">
+          <label for="contact-email">Work Email</label>
+          <input type="email" id="contact-email" placeholder="e.g. sarah@mastercard.com" required />
+          <span class="field-error" id="err-contact-email">A valid email is required.</span>
+        </div>
+
+        <div class="form-group">
+          <label for="industries">Industries Interested In</label>
+          <div class="checkbox-group">
+            <label class="checkbox-label"><input type="checkbox" value="fintech" /> Fintech</label>
+            <label class="checkbox-label"><input type="checkbox" value="healthtech" /> Healthtech</label>
+            <label class="checkbox-label"><input type="checkbox" value="edtech" /> Edtech</label>
+            <label class="checkbox-label"><input type="checkbox" value="agritech" /> Agritech</label>
+            <label class="checkbox-label"><input type="checkbox" value="other" /> Other</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>What do you offer startups?</label>
+          <div class="checkbox-group">
+            <label class="checkbox-label"><input type="checkbox" value="pilot" /> Pilot Program</label>
+            <label class="checkbox-label"><input type="checkbox" value="api" /> API Access</label>
+            <label class="checkbox-label"><input type="checkbox" value="distribution" /> Distribution</label>
+            <label class="checkbox-label"><input type="checkbox" value="co-marketing" /> Co-marketing</label>
+            <label class="checkbox-label"><input type="checkbox" value="credits" /> Credits / Resources</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Suitable Startup Stage</label>
+          <div class="checkbox-group">
+            <label class="checkbox-label"><input type="checkbox" value="pre-seed" /> Pre-seed</label>
+            <label class="checkbox-label"><input type="checkbox" value="seed" /> Seed</label>
+            <label class="checkbox-label"><input type="checkbox" value="series-a" /> Series A</label>
+            <label class="checkbox-label"><input type="checkbox" value="series-b" /> Series B+</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="past-initiatives">Past Initiatives (optional)</label>
+          <textarea id="past-initiatives" rows="3" placeholder="e.g. Mastercard Fintech Express 2025, ASEAN Startup Program…"></textarea>
+        </div>
+
+        <button type="submit" id="submit-btn" class="btn btn-primary btn-full">Submit for Review</button>
+
+      </form>
+    </div>
+  </main>
+
+  <div id="loading-overlay" class="overlay hidden">
+    <div class="overlay-box">
+      <div class="spinner"></div>
+      <p class="overlay-text">Submitting your profile…</p>
+      <p class="overlay-sub">Cradle will review and activate your account</p>
+    </div>
+  </div>
+
+  <script src="partner-submit.js"></script>
+</body>
+</html>

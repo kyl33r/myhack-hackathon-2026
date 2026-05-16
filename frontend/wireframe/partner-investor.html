@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cradle Portal — Investor Registration</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- future <Nav /> -->
+  <nav class="nav">
+    <span class="nav-logo">Cradle Portal</span>
+  </nav>
+
+  <!-- future <InvestorForm /> -->
+  <main class="container">
+    <a href="partner.html" class="back-btn">← Back</a>
+
+    <div class="card form-card">
+      <div class="form-type-badge">
+        <span class="actor-tag tag-investor">Investor</span>
+      </div>
+      <h1 class="page-title">Register as an Investor</h1>
+      <p class="page-subtitle">Your profile will be reviewed by Cradle before being added to the ecosystem.</p>
+
+      <form id="inv-form" class="form" novalidate>
+
+        <div class="form-group">
+          <label for="fund-name">Fund / Organisation Name</label>
+          <input type="text" id="fund-name" placeholder="e.g. Openspace Ventures" required />
+          <span class="field-error" id="err-fund-name">This field is required.</span>
+        </div>
+
+        <div class="form-group">
+          <label for="contact-name">Contact Person</label>
+          <input type="text" id="contact-name" placeholder="e.g. Marcus Lim" required />
+          <span class="field-error" id="err-contact-name">This field is required.</span>
+        </div>
+
+        <div class="form-group">
+          <label for="contact-email">Work Email</label>
+          <input type="email" id="contact-email" placeholder="e.g. marcus@openspace.vc" required />
+          <span class="field-error" id="err-contact-email">A valid email is required.</span>
+        </div>
+
+        <div class="form-group">
+          <label for="investor-type">Investor Type</label>
+          <select id="investor-type" required>
+            <option value="">Select…</option>
+            <option value="vc">Venture Capital</option>
+            <option value="angel">Angel Investor</option>
+            <option value="family-office">Family Office</option>
+            <option value="corporate-vc">Corporate VC</option>
+            <option value="government">Government Fund</option>
+          </select>
+          <span class="field-error" id="err-investor-type">Please select an investor type.</span>
+        </div>
+
+        <div class="form-group">
+          <label>Investment Stage</label>
+          <div class="checkbox-group">
+            <label class="checkbox-label"><input type="checkbox" value="pre-seed" /> Pre-seed</label>
+            <label class="checkbox-label"><input type="checkbox" value="seed" /> Seed</label>
+            <label class="checkbox-label"><input type="checkbox" value="series-a" /> Series A</label>
+            <label class="checkbox-label"><input type="checkbox" value="series-b" /> Series B+</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Industries</label>
+          <div class="checkbox-group">
+            <label class="checkbox-label"><input type="checkbox" value="fintech" /> Fintech</label>
+            <label class="checkbox-label"><input type="checkbox" value="healthtech" /> Healthtech</label>
+            <label class="checkbox-label"><input type="checkbox" value="edtech" /> Edtech</label>
+            <label class="checkbox-label"><input type="checkbox" value="agritech" /> Agritech</label>
+            <label class="checkbox-label"><input type="checkbox" value="saas" /> SaaS</label>
+            <label class="checkbox-label"><input type="checkbox" value="other" /> Other</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Ticket Size (RM)</label>
+          <div class="input-row">
+            <div class="form-group" style="flex:1;margin:0">
+              <input type="number" id="ticket-min" placeholder="Min e.g. 500000" />
+            </div>
+            <span class="input-row-sep">—</span>
+            <div class="form-group" style="flex:1;margin:0">
+              <input type="number" id="ticket-max" placeholder="Max e.g. 3000000" />
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="thesis">Investment Thesis</label>
+          <textarea id="thesis" rows="3" placeholder="e.g. B2B tech with SEA expansion potential…" required></textarea>
+          <span class="field-error" id="err-thesis">This field is required.</span>
+        </div>
+
+        <div class="form-group">
+          <label for="portfolio">Notable Portfolio Companies (optional)</label>
+          <input type="text" id="portfolio" placeholder="e.g. Funding Societies, Doctor Anywhere" />
+        </div>
+
+        <button type="submit" id="submit-btn" class="btn btn-primary btn-full">Submit for Review</button>
+
+      </form>
+    </div>
+  </main>
+
+  <div id="loading-overlay" class="overlay hidden">
+    <div class="overlay-box">
+      <div class="spinner"></div>
+      <p class="overlay-text">Submitting your profile…</p>
+      <p class="overlay-sub">Cradle will review and activate your account</p>
+    </div>
+  </div>
+
+  <script src="partner-submit.js"></script>
+</body>
+</html>
