@@ -68,3 +68,40 @@ class Linkage(BaseModel):
 
 class LinkageCreateResponse(BaseModel):
     linkage_id: str
+
+
+class LinkageUpdate(BaseModel):
+    status: Literal["active", "pending", "closed"] | None = None
+    outcome: str | None = None
+
+
+class PartnerProfile(BaseModel):
+    org_name: str
+    contact_name: str
+    contact_email: str
+    partner_type: PartnerType
+    stages: list[str] = []
+    # corporate-specific
+    industries: list[str] = []
+    offers: list[str] = []
+    past_initiatives: str | None = None
+    # investor-specific
+    investor_type: str | None = None
+    ticket_min: int | None = None
+    ticket_max: int | None = None
+    thesis: str | None = None
+    portfolio: str | None = None
+    # service provider-specific
+    service_type: str | None = None
+    what_offer: str | None = None
+    pricing_model: str | None = None
+
+
+class LoginRequest(BaseModel):
+    email: str
+    password: str
+
+
+class LoginResponse(BaseModel):
+    success: bool
+    role: str

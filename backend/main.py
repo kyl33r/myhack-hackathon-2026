@@ -21,7 +21,7 @@ _check_env()
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from routers import linkages, matches, startups
+from routers import auth, linkages, partners, seed, startups
 
 app = FastAPI(
     title="Cradle Portal API",
@@ -43,8 +43,10 @@ app.add_middleware(
 )
 
 app.include_router(startups.router, tags=["startups"])
-app.include_router(matches.router, tags=["matches"])
 app.include_router(linkages.router, tags=["linkages"])
+app.include_router(partners.router, tags=["partners"])
+app.include_router(auth.router,     tags=["auth"])
+app.include_router(seed.router,     tags=["seed"])
 
 
 @app.get("/health")
