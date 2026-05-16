@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cradle Portal — Profile</title>
+  <title>Cradle Portal</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -11,139 +11,40 @@
   <!-- future <Nav /> -->
   <nav class="nav">
     <span class="nav-logo">Cradle Portal</span>
-    <a href="admin.html" class="nav-link">Admin Dashboard</a>
   </nav>
 
-  <!-- future <ProfileForm /> -->
+  <!-- future <ActorPicker /> -->
   <main class="container">
-    <div class="card form-card">
-      <h1 class="page-title">Tell us about your startup</h1>
-      <p class="page-subtitle">We'll match you with mentors, programmes, and partners.</p>
+    <div class="picker-hero">
+      <h1 class="page-title">Welcome to Cradle Portal</h1>
+      <p class="page-subtitle">Who are you joining as today?</p>
+    </div>
 
-      <form id="profile-form" class="form" novalidate>
+    <div class="actor-grid">
 
-        <!-- future <FormField label="Cofounder Name" /> -->
-        <div class="form-group">
-          <label for="cofounder-name">Cofounder Name</label>
-          <input type="text" id="cofounder-name" placeholder="e.g. Jane Lim" required />
-          <span class="field-error" id="err-cofounder-name">This field is required.</span>
-        </div>
+      <a class="actor-card" href="startup.html">
+        <span class="actor-icon">🚀</span>
+        <h2 class="actor-card-title">Startup</h2>
+        <p class="actor-card-desc">Get matched with mentors, programmes, investors, and corporate partners.</p>
+        <span class="btn btn-primary actor-card-cta">Get Started →</span>
+      </a>
 
-        <!-- future <FormField label="Startup Name" /> -->
-        <div class="form-group">
-          <label for="startup-name">Startup Name</label>
-          <input type="text" id="startup-name" placeholder="e.g. PayEase" required />
-          <span class="field-error" id="err-startup-name">This field is required.</span>
-        </div>
+      <a class="actor-card" href="partner.html">
+        <span class="actor-icon">🤝</span>
+        <h2 class="actor-card-title">Partner</h2>
+        <p class="actor-card-desc">Corporate, investor, or service provider looking to engage with startups in the ecosystem.</p>
+        <span class="btn btn-outline actor-card-cta">Join as Partner →</span>
+      </a>
 
-        <!-- future <SelectField label="Industry" /> -->
-        <div class="form-group">
-          <label for="industry">Industry</label>
-          <select id="industry" required>
-            <option value="">Select industry…</option>
-            <option value="fintech">Fintech</option>
-            <option value="healthtech">Healthtech</option>
-            <option value="edtech">Edtech</option>
-            <option value="agritech">Agritech</option>
-            <option value="other">Other</option>
-          </select>
-          <span class="field-error" id="err-industry">Please select an industry.</span>
-        </div>
+      <a class="actor-card" href="staff-login.html">
+        <span class="actor-icon">🏛️</span>
+        <h2 class="actor-card-title">Cradle Staff</h2>
+        <p class="actor-card-desc">Programme administrators and ecosystem managers — access the full dashboard.</p>
+        <span class="btn btn-outline actor-card-cta">Staff Login →</span>
+      </a>
 
-        <!-- future <SelectField label="Stage" /> -->
-        <div class="form-group">
-          <label for="stage">Stage</label>
-          <select id="stage" required>
-            <option value="">Select stage…</option>
-            <option value="pre-seed">Pre-seed</option>
-            <option value="seed">Seed</option>
-            <option value="series-a">Series A</option>
-            <option value="series-b">Series B+</option>
-          </select>
-          <span class="field-error" id="err-stage">Please select a stage.</span>
-        </div>
-
-        <!-- future <TextareaField label="Problem Being Solved" /> -->
-        <div class="form-group">
-          <label for="problem">Problem Being Solved</label>
-          <textarea id="problem" rows="4" placeholder="Describe the problem your startup solves…" required></textarea>
-          <span class="field-error" id="err-problem">This field is required.</span>
-        </div>
-
-        <!-- future <MultiSelect label="What help do you need?" /> -->
-        <div class="form-group">
-          <label>What help do you need?</label>
-          <div class="checkbox-group">
-            <label class="checkbox-label"><input type="checkbox" value="mentorship" /> Mentorship</label>
-            <label class="checkbox-label"><input type="checkbox" value="funding" /> Funding</label>
-            <label class="checkbox-label"><input type="checkbox" value="pilot partners" /> Pilot Partners</label>
-            <label class="checkbox-label"><input type="checkbox" value="networking" /> Networking</label>
-          </div>
-        </div>
-
-        <!-- future <SubmitButton /> -->
-        <button type="submit" id="submit-btn" class="btn btn-primary btn-full">
-          Find My Matches
-        </button>
-
-      </form>
     </div>
   </main>
-
-  <!-- future <LoadingOverlay /> -->
-  <div id="loading-overlay" class="overlay hidden">
-    <div class="overlay-box">
-      <div class="spinner"></div>
-      <p class="overlay-text">Finding your best matches…</p>
-      <p class="overlay-sub">Analysing mentors, programmes, and partners</p>
-    </div>
-  </div>
-
-  <script>
-    const form = document.getElementById('profile-form');
-    const submitBtn = document.getElementById('submit-btn');
-    const overlay = document.getElementById('loading-overlay');
-
-    const requiredFields = [
-      { id: 'cofounder-name', errId: 'err-cofounder-name' },
-      { id: 'startup-name',   errId: 'err-startup-name' },
-      { id: 'industry',       errId: 'err-industry' },
-      { id: 'stage',          errId: 'err-stage' },
-      { id: 'problem',        errId: 'err-problem' },
-    ];
-
-    function validate() {
-      let valid = true;
-      requiredFields.forEach(({ id, errId }) => {
-        const el = document.getElementById(id);
-        const err = document.getElementById(errId);
-        if (!el.value.trim()) {
-          err.classList.add('visible');
-          valid = false;
-        } else {
-          err.classList.remove('visible');
-        }
-      });
-      return valid;
-    }
-
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      if (!validate()) return;
-
-      const startupName = document.getElementById('startup-name').value.trim();
-
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Processing…';
-      overlay.classList.remove('hidden');
-
-      // Simulate API delay, then redirect to results
-      setTimeout(() => {
-        const params = new URLSearchParams({ startup: startupName });
-        window.location.href = `results.html?${params}`;
-      }, 2200);
-    });
-  </script>
 
 </body>
 </html>

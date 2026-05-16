@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cradle Portal — Service Provider Registration</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- future <Nav /> -->
+  <nav class="nav">
+    <span class="nav-logo">Cradle Portal</span>
+  </nav>
+
+  <!-- future <ServiceProviderForm /> -->
+  <main class="container">
+    <a href="partner.html" class="back-btn">← Back</a>
+
+    <div class="card form-card">
+      <div class="form-type-badge">
+        <span class="actor-tag tag-service">Service Provider</span>
+      </div>
+      <h1 class="page-title">Register as a Service Provider</h1>
+      <p class="page-subtitle">Your profile will be reviewed by Cradle before being added to the ecosystem.</p>
+
+      <form id="svc-form" class="form" novalidate>
+
+        <div class="form-group">
+          <label for="org-name">Organisation Name</label>
+          <input type="text" id="org-name" placeholder="e.g. Wong & Partners" required />
+          <span class="field-error" id="err-org-name">This field is required.</span>
+        </div>
+
+        <div class="form-group">
+          <label for="contact-name">Contact Person</label>
+          <input type="text" id="contact-name" placeholder="e.g. David Wong" required />
+          <span class="field-error" id="err-contact-name">This field is required.</span>
+        </div>
+
+        <div class="form-group">
+          <label for="contact-email">Work Email</label>
+          <input type="email" id="contact-email" placeholder="e.g. david@wongpartners.com" required />
+          <span class="field-error" id="err-contact-email">A valid email is required.</span>
+        </div>
+
+        <div class="form-group">
+          <label for="service-type">Service Type</label>
+          <select id="service-type" required>
+            <option value="">Select…</option>
+            <option value="legal">Legal</option>
+            <option value="accounting">Accounting / Finance</option>
+            <option value="cloud">Cloud Credits / Infrastructure</option>
+            <option value="marketing">Marketing / PR</option>
+            <option value="regulatory">Regulatory / Compliance</option>
+            <option value="hr">HR / Recruitment</option>
+            <option value="other">Other</option>
+          </select>
+          <span class="field-error" id="err-service-type">Please select a service type.</span>
+        </div>
+
+        <div class="form-group">
+          <label for="what-offer">What do you offer?</label>
+          <textarea id="what-offer" rows="3" placeholder="e.g. Startup incorporation, term sheet review, IP filing…" required></textarea>
+          <span class="field-error" id="err-what-offer">This field is required.</span>
+        </div>
+
+        <div class="form-group">
+          <label for="pricing-model">Pricing Model for Cradle Startups</label>
+          <select id="pricing-model" required>
+            <option value="">Select…</option>
+            <option value="free">Free tier available</option>
+            <option value="discounted">Discounted rate</option>
+            <option value="paid">Standard paid</option>
+          </select>
+          <span class="field-error" id="err-pricing-model">Please select a pricing model.</span>
+        </div>
+
+        <div class="form-group">
+          <label>Suitable Startup Stage</label>
+          <div class="checkbox-group">
+            <label class="checkbox-label"><input type="checkbox" value="pre-seed" /> Pre-seed</label>
+            <label class="checkbox-label"><input type="checkbox" value="seed" /> Seed</label>
+            <label class="checkbox-label"><input type="checkbox" value="series-a" /> Series A</label>
+            <label class="checkbox-label"><input type="checkbox" value="series-b" /> Series B+</label>
+          </div>
+        </div>
+
+        <button type="submit" id="submit-btn" class="btn btn-primary btn-full">Submit for Review</button>
+
+      </form>
+    </div>
+  </main>
+
+  <div id="loading-overlay" class="overlay hidden">
+    <div class="overlay-box">
+      <div class="spinner"></div>
+      <p class="overlay-text">Submitting your profile…</p>
+      <p class="overlay-sub">Cradle will review and activate your account</p>
+    </div>
+  </div>
+
+  <script src="partner-submit.js"></script>
+</body>
+</html>

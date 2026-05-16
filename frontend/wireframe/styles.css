@@ -25,6 +25,38 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; b
 /* ── Card ── */
 .card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 2rem; }
 
+/* ── Actor picker ── */
+.picker-hero { text-align: center; margin-bottom: 2.5rem; }
+.actor-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem;
+  max-width: 860px; margin: 0 auto;
+}
+.actor-card {
+  background: #fff; border: 1.5px solid #e2e8f0; border-radius: 16px;
+  padding: 2rem 1.5rem; display: flex; flex-direction: column; align-items: center;
+  gap: 0.75rem; text-align: center; cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s; outline: none;
+}
+.actor-card:hover { border-color: #4f6ef7; box-shadow: 0 4px 16px rgba(79,110,247,0.12); }
+.actor-icon { font-size: 2.25rem; line-height: 1; }
+.actor-card-title { font-size: 1.05rem; font-weight: 700; color: #1a1a2e; }
+.actor-card-desc { font-size: 0.85rem; color: #64748b; line-height: 1.5; flex: 1; }
+.actor-card-cta { margin-top: 0.5rem; pointer-events: none; }
+.btn-outline { background: #fff; color: #4f6ef7; border: 1.5px solid #4f6ef7; }
+
+/* ── Back button ── */
+.back-btn {
+  background: none; border: none; color: #4f6ef7; font-size: 0.875rem;
+  cursor: pointer; padding: 0; margin-bottom: 1.25rem; display: inline-flex; align-items: center; gap: 0.25rem;
+}
+.back-btn:hover { text-decoration: underline; }
+
+/* ── Success box ── */
+.success-box { text-align: center; padding: 1.5rem 0; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
+.success-icon { font-size: 2.5rem; }
+.success-box h3 { font-size: 1.1rem; font-weight: 700; }
+.success-box p { color: #64748b; font-size: 0.9rem; }
+
 /* ── Form ── */
 .form-card { max-width: 560px; margin: 0 auto; }
 .form { display: flex; flex-direction: column; gap: 1.25rem; }
@@ -85,6 +117,11 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; b
 .tag-corporate { background: #fff7ed; color: #ea580c; }
 .tag-investor  { background: #f0fdf4; color: #16a34a; }
 .tag-service   { background: #f0f9ff; color: #0284c7; }
+.tag-cradle    { background: #fef2f2; color: #dc2626; }
+
+.form-type-badge { margin-bottom: 0.75rem; }
+.input-row { display: flex; align-items: center; gap: 0.5rem; }
+.input-row-sep { color: #94a3b8; font-weight: 600; }
 .score-badge {
   padding: 0.2rem 0.55rem; border-radius: 99px;
   font-size: 0.8rem; font-weight: 700; white-space: nowrap;
@@ -191,4 +228,5 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; b
 @media (max-width: 680px) {
   .card-grid { grid-template-columns: 1fr; }
   .card-grid-2 { grid-template-columns: 1fr; }
+  .actor-grid { grid-template-columns: 1fr; }
 }
