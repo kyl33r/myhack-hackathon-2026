@@ -149,6 +149,9 @@ activemq-data/
 # SageMath parsed files
 *.sage.py
 
+# Firebase service account key — never commit this
+serviceAccountKey.json
+
 # Environments
 .env
 .envrc
