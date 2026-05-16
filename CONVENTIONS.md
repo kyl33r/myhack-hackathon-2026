@@ -3,22 +3,23 @@
 ## Overview
 
 Cradle Portal — AI-powered mentor/programme/partner matching engine.
-Frontend: vanilla HTML/CSS/JS served via Firebase Hosting.
-Backend: Python API that handles Gemini calls and Firestore writes.
+Frontend: React + TypeScript (Vite), deployed via Firebase Hosting.
+Backend: Python FastAPI that handles Gemini calls and Firestore writes.
 
 ## Repository Layout
 
 ```
 /
-├── frontend/          # Static HTML/CSS/JS
-├── backend/           # Python API
+├── frontend/          # React + TypeScript (Vite)
+├── backend/           # Python FastAPI
 ├── PLAN.md            # Product spec and data model
 └── CONVENTIONS.md     # This file
 ```
 
 ## Naming
 
-- Files: `kebab-case` everywhere (e.g. `match-results.js`, `startup_router.py`)
+- Frontend files: `PascalCase` for components (`MatchCard.tsx`), `camelCase` for everything else (`api.ts`, `useLinkages.ts`)
+- Backend files: `snake_case` everywhere (`startup_router.py`, `firestore.py`)
 - IDs: `snake_case` strings with a type prefix (e.g. `startup_001`, `mentor_003`, `lnk_20260516_001`)
 - Firestore collections: `snake_case` plural nouns (`startups`, `linkages`)
 
@@ -31,9 +32,14 @@ Seed data (mentors, programmes, partners) is static JSON; never written to Fires
 
 All secrets live in `backend/.env` (gitignored).
 `backend/.env.example` lists required keys — keep it up to date when adding a new secret.
+Frontend env vars use the `VITE_` prefix; non-secret values only.
 
-Required keys:
+Required backend keys:
 - `GEMINI_API_KEY`
+
+Required frontend keys:
+- `VITE_USE_STUB` — `"true"` to use local stubs, `"false"` to hit the real backend
+- `VITE_API_BASE_URL` — base URL of the FastAPI server
 
 ## Actor Types
 

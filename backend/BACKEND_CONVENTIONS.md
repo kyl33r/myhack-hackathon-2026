@@ -2,24 +2,24 @@
 
 ## Stack
 
-Python + FastAPI. Talks to Gemini API and Firestore.
-Runs locally with `uvicorn`; deployed behind Firebase Hosting rewrites or standalone.
+Python 3.12 + FastAPI + uv (package manager).
+Talks to Gemini API (`google-generativeai`) and Firestore (`google-cloud-firestore`).
 
 ## File Layout
 
 ```
 backend/
-├── main.py                 # App entry point — mounts routers
-├── dependencies.py         # FastAPI dependencies (Firestore client, Gemini client)
-├── types.py                # Pydantic models and TypedDicts
-├── prompts.py              # All Gemini prompt templates
+├── main.py                 # App entry point — creates FastAPI app, mounts routers
+├── dependencies.py         # FastAPI Depends() providers (Firestore client, Gemini client)
+├── types.py                # Pydantic models and TypedDicts — all request/response shapes
+├── prompts.py              # All Gemini prompt templates — no prompt text anywhere else
 ├── routers/
 │   ├── startups.py         # POST /startups
 │   ├── matches.py          # POST /matches
-│   └── linkages.py         # POST /linkages, GET /linkages
+│   └── linkages.py         # POST /linkages  GET /linkages
 └── services/
     ├── firestore.py        # Firestore read/write helpers
-    └── gemini.py           # Gemini API call + response parsing
+    └── gemini.py           # Gemini API call + JSON response parsing
 ```
 
 ## Separation of Concerns
@@ -28,42 +28,54 @@ backend/
 |-------|---------------|
 | `routers/` | HTTP boundary — validate input, call services, return response |
 | `services/` | Business logic and external I/O (Firestore, Gemini) |
-| `dependencies.py` | Shared FastAPI `Depends()` providers |
-| `prompts.py` | All prompt strings — no prompt text inside service or router files |
+| `dependencies.py` | Shared `Depends()` providers |
+| `prompts.py` | All prompt strings — no prompt text in service or router files |
 | `types.py` | All Pydantic models and TypedDicts — no inline dicts as API contracts |
 
-## Types
+## Types (`types.py`)
 
 Define a Pydantic model for every request body and every response body.
-Use `TypedDict` for internal data structures (seed records, Gemini parsed output).
+Use `TypedDict` for internal structures (seed records, Gemini parsed output).
 
-Key models (defined in `types.py`):
+Key models:
 - `StartupProfile` — form submission payload
-- `MatchResult` — single Gemini match (actor_id, match_score, match_reason)
-- `MatchResponse` — full Gemini response (mentors[], programmes[], partners[])
+- `MatchResult` — single Gemini match (`actor_id`, `match_score`, `match_reason`, `actor_type`, `partner_type`)
+- `MatchResponse` — full Gemini response (`mentors[]`, `programmes[]`, `corporate_partners[]`, `investors[]`, `service_providers[]`)
 - `LinkageCreate` — body for confirming a linkage
 - `Linkage` — Firestore linkage document shape
 
 ## Gemini Integration (`services/gemini.py`)
 
-- The prompt is assembled in `prompts.py` and passed in — never build prompt strings in `gemini.py`.
-- Always request JSON-only output from Gemini; parse with `json.loads()`.
+- Prompt assembled in `prompts.py` and passed in — never build prompt strings in `gemini.py`.
+- Always request JSON-only output; parse with `json.loads()`.
 - Validate `match_score` is an integer 0–100 before returning; raise `ValueError` otherwise.
-- Use `gemini-1.5-flash` by default.
+- Model: `gemini-1.5-flash`.
 
 ## Firestore Integration (`services/firestore.py`)
 
-- Client is injected via `dependencies.py` — never instantiate inside a service function.
-- Linkage IDs are generated here using the format `lnk_YYYYMMDD_NNN`.
-- All writes are `await`-ed; use the async Firestore client.
+- Client injected via `dependencies.py` — never instantiate inside a service function.
+- Linkage IDs generated here: `lnk_YYYYMMDD_NNN`.
+- Use the async Firestore client throughout.
 
 ## Error Handling
 
 - Services raise plain Python exceptions (`ValueError`, `RuntimeError`).
-- Routers catch and convert to appropriate HTTP status codes (`422`, `502`, `500`).
-- Never return a 200 with an error payload — use proper HTTP status codes.
+- Routers catch and map to HTTP status codes (`422`, `502`, `500`).
+- Never return 200 with an error body — use proper HTTP status codes.
+
+## CORS
+
+Allow `http://localhost:5173` (Vite dev server) in development.
+Tighten to the Firebase Hosting domain before deploying.
+
+## Package Management
+
+Use `uv` for all dependency management:
+- Add a dep: `uv add <package>`
+- Run the server: `uv run uvicorn main:app --reload`
 
 ## Environment
 
-Secrets loaded from `.env` via `python-dotenv` at startup in `main.py`.
-Access via `os.getenv()`; fail fast with a clear message if a required key is missing.
+Secrets loaded via `python-dotenv` in `main.py`.
+Access via `os.getenv()`; raise a clear error on startup if a required key is missing.
+Never read from `.env` directly in service or router files — use injected config or `os.getenv()`.
