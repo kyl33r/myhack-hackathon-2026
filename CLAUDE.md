@@ -1,0 +1,2 @@
+- do not read from .env directly
+- refer to AGENTS.md as single source of truth
